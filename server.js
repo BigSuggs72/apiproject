@@ -1,3 +1,5 @@
+// Class 39: send only JSON
+
 const express = require('express')
 const app = express()
 const PORT = 8000
