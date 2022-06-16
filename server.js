@@ -1,21 +1,27 @@
-// Class 39: send only JSON
+//Class 38 assignment on 5/31/2022:
 
 const express = require('express')
 const app = express()
 const PORT = 8000
 const rappers = {
     '21 savage' : {
-        'birthName': 'aa',
-        'birthLocation': 'T-Town',
+        'number': 1,
+        'firstname': 'Shéyaa Bin',
+        'lastname':'Abraham-Joseph',
+        'birthLocation': 'Atlanta, GA',
         'birthAge': 29
     },
-    'chance' : {
-        'birthName': 'bb',
-        'birthLocation': 'J-Town',
-        'birthAge': 29
+    'chance the rapper' : {
+        'number': 2,
+        'firstname': 'Chancelor',
+        'lastname':'Bennett',
+        'birthLocation': 'Chicago, IL',
+        'birthAge': 30
     },
     'unknown' : {
-        'birthName': 'unknown',
+        'number': 3,
+        'firstname': 'unknown',
+        'lastname':'unknown',
         'birthLocation': 'unknown',
         'birthAge': 'unknown'
     },
@@ -26,14 +32,41 @@ app.get('/', (request, response) =>{
 })
 
 app.get('/api/:name', (request, response) => {
-    const rapperName = request.params.name.toLowerCase()
-    if ( rappers[rapperName] ) {
-        response.json(rappers[rapperName])
-    }else{
-        response.json(rappers['unknown'])
-    }
+    const rapperInfo = request.params.name.toLowerCase()
+    const ent = Object.entries(rappers)
+    
+    const newInfo = ent.map((item) => {
+        const [first,second] = item
+        // console.log(second);
+        if (rappers[rapperInfo]) {
+            response.json(rappers[rapperInfo])
+         }   
+        //  }else{
+        //     return response.json(rappers['unknown'])
+        //  }
+    })
+        
+
+    //for (let prop of rappers)
+
+    // for (const [key,value] of Object.entries(rappers))
+    //     if (value.firstname.toLowerCase() === rapperInfo || value.lastname.toLowerCase() === rapperInfo || value.number.toString().toLowerCase() === rapperInfo){
+    //     return response.json(rappers[key])
+    // }else{
+    //     return response.json(rappers['unknown'])
+    // }
 })
 
-app.listen(PORT, () => {
+// Leon original Code
+// if ( rappers[rapperName]) {
+    //     response.json(rappers[rapperName])
+    // }else{
+    //     response.json(rappers['unknown'])
+    // }
+
+
+
+
+app.listen(process.env.PORT || PORT, () => {
     console.log(`The server is now running on port ${PORT}!  You betta go catch it!`)
 })
