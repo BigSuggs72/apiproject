@@ -32,29 +32,20 @@ app.get('/', (request, response) =>{
 })
 
 app.get('/api/:name', (request, response) => {
-    const rapperInfo = request.params.name.toLowerCase()
-    const ent = Object.entries(rappers)
+    const rapperName = request.params.name.toLowerCase()
+    const val = Object.values(rappers)
+    let result = ''
     
-    const newInfo = ent.map((item) => {
-        const [first,second] = item
-        // console.log(second);
-        if (rappers[rapperInfo]) {
-            response.json(rappers[rapperInfo])
-         }   
-        //  }else{
-        //     return response.json(rappers['unknown'])
-        //  }
-    })
-        
-
-    //for (let prop of rappers)
-
-    // for (const [key,value] of Object.entries(rappers))
-    //     if (value.firstname.toLowerCase() === rapperInfo || value.lastname.toLowerCase() === rapperInfo || value.number.toString().toLowerCase() === rapperInfo){
-    //     return response.json(rappers[key])
-    // }else{
-    //     return response.json(rappers['unknown'])
-    // }
+    for (const value of val){
+        if (value.firstname.toLowerCase() === rapperName || value.lastname.toLowerCase() === rapperName || value.number === Number(rapperName)){
+        result = value
+            break;
+        }else{
+            result = rappers['unknown']
+            // response.json(rappers['unknown'])
+        }
+    }       
+        return response.json(result)
 })
 
 // Leon original Code
@@ -63,10 +54,7 @@ app.get('/api/:name', (request, response) => {
     // }else{
     //     response.json(rappers['unknown'])
     // }
-
-
-
-
+         
 app.listen(process.env.PORT || PORT, () => {
     console.log(`The server is now running on port ${PORT}!  You betta go catch it!`)
 })
