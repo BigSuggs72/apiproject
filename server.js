@@ -42,7 +42,6 @@ app.get('/api/:name', (request, response) => {
             break;
         }else{
             result = rappers['unknown']
-            // response.json(rappers['unknown'])
         }
     }       
         return response.json(result)
